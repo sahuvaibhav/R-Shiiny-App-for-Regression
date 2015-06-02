@@ -1,4 +1,4 @@
-header =   dashboardHeader(title = "Basic Header",
+header =   dashboardHeader(title = "Stats",
                            dropdownMenu(type = "messages",
                                         messageItem(
                                           from = "sales-dept",message = "sales ready for this month"),
@@ -15,9 +15,11 @@ sidebar = dashboardSidebar(
                    subtitle = a(href = "#", icon("circle", class = "text-success"), "Online"),
                    image = "C:/Users/Vaibhav/Desktop/Test/StatsDashBoard/fetchImage.jpg"),
   sidebarMenu(
-    menuItem("Dashboard", tabName = "dashBoard",icon = icon("dashboard")),
-    menuItem("Widgets", tabName = "widgets", icon = icon("life-sing"),badgeLabel = "New",badgeColor = "green"),
-    menuItem("Source Code", icon = icon("file-code-o"), href= "https://github.com/rstudio/shinydashboard/"),
+    menuItem("Confidence Interval", tabName = "tabCI",icon = icon("area-chart")),
+    menuItem("Hypothesis Testing", tabName = "tabHT", icon = icon("area-chart"),badgeLabel = "New",badgeColor = "green"),
+    menuItem("Hypothesis Testing for 2 Populations", tabName = "tabHT2",icon = icon("area-chart")),
+    menuItem("Anova", tabName = "tabAnova",icon = icon("area-chart")),
+    menuItem("Regression", tabName = "tabRegression",icon = icon("line-chart")),
     menuItemOutput("MenuItem")
     ),
   sidebarSearchForm(textId = "searchText", label = "Search...", buttonId = "SearchButton")
@@ -27,24 +29,36 @@ sidebar = dashboardSidebar(
 
 body = dashboardBody(
   tabItems(
-    tabItem(tabName = "dashBoard",
-            h2("MY Dashboard"),
+    tabItem(tabName = "tabCI",
+            h2("Confidense Interval"),
             fluidRow(
-              box(title = "Histogram",solidHeader = T,collapsible = T,
-                  status = "primary",background = "red", plotOutput("plot1",height=250)),
+              box(title = "Input Parameters",solidHeader = T,collapsible = F,width =4,
+                  status = "primary",
+                  p("Provide mean, Standard Deviation,Upper Bound and Lower Bound to plot confidence Interval on Normal Plot"),
+                  numericInput("meanCI", label = h4("Mean"), value = 0),
+                  numericInput("sdCI", label = h4("Standard Deviation(not Variance)"), value = 1),
+                  numericInput("lbCI", label = h4("Lower Bound"), value = -1),
+                  numericInput("ubCI", label = h4("Upper Bound"), value = 1)
+                  
+                  ),
               box(
-                title = "controls",solidHeader = T, collapsible = T,status = "warning",background = "maroon",
-                sliderInput("slider","Number of obs",1,100,50),
-                textInput("Text","Text Input")
+                title = "Normal",solidHeader = T, collapsible = F,status = "primary",width = 8,
+                plotOutput("mapCI")
               )
             )
     ),
     tabItem(tabName = "widgets",
-            h2("widget tab contents")
+            h2("Info Box"),
+            fluidRow(
+              infoBox("New Orders", 10*2, fill =F),
+              infoBoxOutput("ProgressBox"),
+              infoBoxOutput("approvalBox"),
+              box(width = 4, actionButton("Count","increment Progress"))
+              )
             
     )
     
   )
 )
 
-dashboardPage(header,sidebar,body)
+dashboardPage(skin = "black",header,sidebar,body)
