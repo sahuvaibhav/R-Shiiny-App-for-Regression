@@ -33,7 +33,7 @@ body = dashboardBody(
             h2("Confidense Interval"),
             fluidRow(
               box(title = "Input Parameters",solidHeader = T,collapsible = F,width =4,
-                  status = "primary",
+                  status = "primary",height= 550,
                   p("Provide mean, Standard Deviation,Upper Bound and Lower Bound to plot confidence Interval on Normal Plot"),
                   numericInput("meanCI", label = h4("Mean"), value = 0),
                   numericInput("sdCI", label = h4("Standard Deviation(not Variance)"), value = 1),
@@ -42,8 +42,9 @@ body = dashboardBody(
                   
                   ),
               box(
-                title = "Normal",solidHeader = T, collapsible = F,status = "primary",width = 8,
+                title = "Normal",solidHeader = T, collapsible = F,status = "primary",width = 8,height = 550,
                 plotOutput("mapCI")
+                
               )
             )
     ),

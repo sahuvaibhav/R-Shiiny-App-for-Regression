@@ -14,16 +14,18 @@ normal = function(mean, sd, lb,ub){
   x <- seq(-4,4,length=100)*sd + mean
   hx <- dnorm(x,mean,sd)
   
-  plot(x, hx, type="n", ylab="",
-       main="Normal Distribution", axes=FALSE)
+  plot(x, hx, type="l", ylab="",main="Normal Distribution", axes=FALSE)
   
   i <- x >= lb & x <= ub
+  #i <- x <= lb 
   lines(x, hx)
-  polygon(c(lb,x[i],ub), c(0,hx[i],0), col="red",border = 1)
+  X = c(x[i][1],x[i],rev(x[i])[1])
+  Y = c(0,hx[i],0)
+  polygon(X,Y, col="#569BBD",border = 1)
+  #polygon(c(lb,x[i],ub), c(0,hx[i],0), col="#569BBD",border = 1)
   
   area <- pnorm(ub, mean, sd) - pnorm(lb, mean, sd)
-  result <- paste("P(",lb,"< Mu <",ub,") =",
-                  signif(area, digits=3))
+  result <- paste("P(",lb,"< Mu <",ub,") =",signif(area, digits=3))
   mtext(result,3)
   axis(1, at=seq(mean-4*sd, mean+4*sd, sd), pos=0) 
 }
