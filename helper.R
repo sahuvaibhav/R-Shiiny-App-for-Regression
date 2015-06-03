@@ -47,8 +47,9 @@ hypothesis_test = function(mean,SmeanHT,sd,sdchoice,type,alpha,n){
     i <- x <= zl 
     j  = x >=zu
     lines(x, hx)
-    polygon(c(min(x),x[i],zl), c(0,hx[i],0), col="red")
-    polygon(c(zu,x[j],max(x)), c(0,hx[j],0), col="red")
+    #polygon(c(min(x),x[i],zl), c(0,hx[i],0), col="red")
+    polygon(c(x[i][1],x[i],rev(x[i])[1]), c(0,hx[i],0), col="#569BBD")
+    polygon(c(x[j][1],x[j],rev(x[j])[1]), c(0,hx[j],0), col="#569BBD")
     axis(1, at=c(zl,zu,mean-3*sd/sqrt(n), mean-2*sd/sqrt(n),mean-sd/sqrt(n),mean,
                  mean+sd/sqrt(n),mean+2*sd/sqrt(n),mean+3*sd/sqrt(n),SmeanHT), pos=0) 
     
@@ -71,7 +72,7 @@ hypothesis_test = function(mean,SmeanHT,sd,sdchoice,type,alpha,n){
     }
     i <- x <= zl 
     lines(x, hx)
-    polygon(c(min(x),x[i],zl), c(0,hx[i],0), col="red")
+    polygon(c(x[i][1],x[i],rev(x[i])[1]), c(0,hx[i],0), col="#569BBD")
     axis(1, at=c(mean-3*sd/sqrt(n), mean-2*sd/sqrt(n),mean-sd/sqrt(n),mean,
                  mean+sd/sqrt(n),mean+2*sd/sqrt(n),mean+3*sd/sqrt(n),zl,SmeanHT), pos=0)
     text(x=zl, y=(dnorm(mean,mean,sd/sqrt(n)) - dnorm(zl,mean,sd/sqrt(n)))/1.2, labels='Rejection Region', col='blue')
@@ -90,7 +91,7 @@ hypothesis_test = function(mean,SmeanHT,sd,sdchoice,type,alpha,n){
     }
     j  = x >=zu
     lines(x, hx)
-    polygon(c(zu,x[j],max(x)), c(0,hx[j],0), col="red")
+    polygon(c(x[j][1],x[j],rev(x[j])[1]), c(0,hx[j],0), col="#569BBD")
     axis(1, at=c(mean-3*sd/sqrt(n), mean-2*sd/sqrt(n),mean-sd/sqrt(n),mean,
                  mean+sd/sqrt(n),mean+2*sd/sqrt(n),mean+3*sd/sqrt(n),zu,SmeanHT), pos=0)
     text(x=zu, y=(dnorm(mean,mean,sd/sqrt(n)) - dnorm(zu,mean,sd/sqrt(n)))/1.2, labels='Rejection Region', col='blue')
