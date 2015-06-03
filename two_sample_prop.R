@@ -24,8 +24,8 @@ two_sample_prop = function(p1,p2,dp,n1,n2,type,alpha){
     i <- x <= zl 
     j  = x >=zu
     lines(x, hx)
-    polygon(c(min(x),x[i],zl), c(0,hx[i],0), col="red")
-    polygon(c(zu,x[j],max(x)), c(0,hx[j],0), col="red")
+    polygon(c(x[i][1],x[i],rev(x[i])[1]), c(0,hx[i],0), col="#569BBD")
+    polygon(c(x[j][1],x[j],rev(x[j])[1]), c(0,hx[j],0), col="#569BBD")
     axis(1, at=c(zl,zu,dp-3*s, dp-2*s,dp-s,dp,
                  dp+s,dp+2*s,dp+3*s,p1-p2), pos=0) 
     
@@ -50,7 +50,7 @@ two_sample_prop = function(p1,p2,dp,n1,n2,type,alpha){
     t3 = paste("Confidence Interval:[",lb, ",",ub,"]" )
     i <- x <= zl 
     lines(x, hx)
-    polygon(c(min(x),x[i],zl), c(0,hx[i],0), col="red")
+    polygon(c(x[i][1],x[i],rev(x[i])[1]), c(0,hx[i],0), col="#569BBD")
     axis(1, at=c(dp-3*s, dp-2*s,dp-s,dp,dp+s,dp+2*s,dp+3*s,zl,p1-p2), pos=0)
     text(x=zl, y=(dnorm(dp,dp,s) - dnorm(zl,dp,s))/1.2, labels='Rejection Region', col='blue')
     arrows(x0=zl, y0=(dnorm(dp,dp,s) - dnorm(zl,dp,s))/1.2, x1=zl-0.3*s, y1=dnorm(zl-0.3*s,dp, s), col='blue', length=0.1, lwd=1)
@@ -69,7 +69,7 @@ two_sample_prop = function(p1,p2,dp,n1,n2,type,alpha){
     t3 = paste("Confidence Interval:[",lb, ",",ub,"]" )
     j  = x >=zu
     lines(x, hx)
-    polygon(c(zu,x[j],max(x)), c(0,hx[j],0), col="red")
+    polygon(c(x[j][1],x[j],rev(x[j])[1]), c(0,hx[j],0), col="#569BBD")
     axis(1, at=c(dp-3*s, dp-2*s,dp-s,dp,
                  dp+s,dp+2*s,dp+3*s,zu,p1-p2), pos=0)
     text(x=zu, y=(dnorm(dp,dp,s) - dnorm(zu,dp,s))/1.2, labels='Rejection Region', col='blue')

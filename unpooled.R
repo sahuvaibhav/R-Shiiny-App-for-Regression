@@ -26,8 +26,8 @@ unpooled = function(x1,x2,du,s1,s2,n1,n2,type,alpha){
     i <- x <= zl 
     j  = x >=zu
     lines(x, hx)
-    polygon(c(min(x),x[i],zl), c(0,hx[i],0), col="red")
-    polygon(c(zu,x[j],max(x)), c(0,hx[j],0), col="red")
+    polygon(c(x[i][1],x[i],rev(x[i])[1]), c(0,hx[i],0), col="#569BBD")
+    polygon(c(x[j][1],x[j],rev(x[j])[1]), c(0,hx[j],0), col="#569BBD")
     axis(1, at=c(zl,zu,du-3*s, du-2*s,du-s,du,
                  du+s,du+2*s,du+3*s,x1-x2), pos=0) 
     
@@ -53,7 +53,7 @@ unpooled = function(x1,x2,du,s1,s2,n1,n2,type,alpha){
     
     i <- x <= zl 
     lines(x, hx)
-    polygon(c(min(x),x[i],zl), c(0,hx[i],0), col="red")
+    polygon(c(x[i][1],x[i],rev(x[i])[1]), c(0,hx[i],0), col="#569BBD")
     axis(1, at=c(du-3*s, du-2*s,du-s,du,du+s,du+2*s,du+3*s,zl,x1-x2), pos=0)
     text(x=zl, y=(dnorm(du,du,s) - dnorm(zl,du,s))/1.2, labels='Rejection Region', col='blue')
     arrows(x0=zl, y0=(dnorm(du,du,s) - dnorm(zl,du,s))/1.2, x1=zl-0.3*s, y1=dnorm(zl-0.3*s,du, s), col='blue', length=0.1, lwd=1)
@@ -71,7 +71,7 @@ unpooled = function(x1,x2,du,s1,s2,n1,n2,type,alpha){
     t3 = paste("Confidence Interval:[",lb, ",",ub,"]" )
     j  = x >=zu
     lines(x, hx)
-    polygon(c(zu,x[j],max(x)), c(0,hx[j],0), col="red")
+    polygon(c(x[j][1],x[j],rev(x[j])[1]), c(0,hx[j],0), col="#569BBD")
     axis(1, at=c(du-3*s, du-2*s,du-s,du,
                  du+s,du+2*s,du+3*s,zu,x1-x2), pos=0)
     text(x=zu, y=(dnorm(du,du,s) - dnorm(zu,du,s))/1.2, labels='Rejection Region', col='blue')

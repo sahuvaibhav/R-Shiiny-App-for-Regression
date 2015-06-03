@@ -29,6 +29,8 @@ sidebar = dashboardSidebar(
 
 body = dashboardBody(
   tabItems(
+    
+    #=================Confidense Interval Starts==================#
     tabItem(tabName = "tabCI",
             h2("Confidense Interval"),
             fluidRow(
@@ -48,6 +50,7 @@ body = dashboardBody(
               )
             )
     ),
+    #=================Confidense Interval Ends==================#
     
     #=================Hypothesis Testing Starts==================#
     tabItem(tabName = "tabHT",
@@ -88,12 +91,85 @@ body = dashboardBody(
                   textOutput("result2"),
                   textOutput("result3")
                 )
-    #=================Hypothesis Testing Ends====================#
-            
     )
-    
-  )
-)
-)
+  ),
+  #=================Hypothesis Testing Ends====================#
+
+#=================Hypothesis Testing for 2 populations Starts====================#
+    tabItem(tabName="tabHT2",h2("Hypothesis Testing for 2 Populations"),
+            fluidRow(
+              tabBox(title="Input Parameters",id="ht2",height = 550,width=5,side = "right",selected= strong(p("Paired Sample")),
+                     tabPanel(strong(p("Proportions")),h4("Proportions"),
+                              radioButtons("prtype",h5("Tail Type"),c("Two Tail","Left Tail","Right Tail"),selected = "Two Tail"),
+                              div(class="row-fluid",
+                                  div(class="col-md-6",numericInput("p1", label = "p1", value = 0.2)),
+                                  div(class="col-md-6",numericInput("p2", label = "p2", value = 0.3))
+                              ),
+                              div(class="row-fluid",
+                                  div(class="col-md-6",numericInput("n1Pr", label = "n1", value = 100.0)),
+                                  div(class="col-md-6",numericInput("n2Pr", label = "n2", value = 100.0))
+                              ),
+                              numericInput("dp", label = "dp", value = 0.0),
+                              numericInput("alphaPr", label = "alpha", value = 0.05)
+                     ),
+                  tabPanel(strong(p("Independent Sample")),h4(p("Independent Sample")),
+                           div(class = "row-fluid",
+                               div(class="span4",radioButtons("itype",h5("Tail Type"),c("Two Tail","Left Tail","Right Tail"),selected = "Two Tail")),
+                               div(class="span4 offset2",radioButtons("VarType",h5("Variance Type"),c("Pooled Variance","Unpooled Variance"),selected = "Pooled Variance"))
+                           ),
+                           #radioButtons("VarType",h5("Variance Type"),c("Pooled Variance","Unpooled Variance"),selected = "Pooled Variance"),
+                           div(class="row-fluid",
+                               div(class="col-md-6",numericInput("x1", label = "x1", value = 2.0)),
+                               div(class="col-md-6",numericInput("x2", label = "x2", value = 1.0))
+                           ),
+                           div(class="row-fluid",
+                               div(class="col-md-6",numericInput("s1", label = "s1", value = 1.0)),
+                               div(class="col-md-6",numericInput("s2", label = "s2", value = 1.0))
+                           ),
+                           div(class="row-fluid",
+                               div(class="col-md-6",numericInput("n1", label = "n1", value = 100.0)),
+                               div(class="col-md-6",numericInput("n2", label = "n2", value = 100.0))
+                           ),
+                           numericInput("du", label = "du", value = 0.0),
+                           numericInput("alphaI", label = "alpha", value = 0.05)
+                         
+                           ),
+                  tabPanel(strong(p("Paired Sample")),h4(p("Paired Sample")),solidHeader=T,
+                           radioButtons("ptype",h5("Tail Type"),c("Two Tail","Left Tail","Right Tail"),selected = "Two Tail"),
+                           numericInput("dbar", label = "dbar", value = 0.0),
+                           numericInput("D", label = "D", value = 0.0),
+                           numericInput("sdbar", label = "sd", value = 1.0),
+                           numericInput("nP", label = "n", value = 100.0),
+                           numericInput("alphaP", label = "alpha", value = 0.05)
+                  )
+                  
+              
+              ),
+              
+          tabBox(title = "Hypothesis Testing for 2 populations", width = 7,side= "right",selected = strong(p("Paired Sample")),
+                 tabPanel(strong(p("Proportions")),h4("Proportions"),
+                         plotOutput("plotProportions"),
+                         textOutput("textProp1"),
+                         textOutput("textProp2"),
+                         textOutput("textProp3")),
+                 tabPanel(strong(p("Independent Sample")),h4(p("Independent Sample")),
+                          plotOutput("plotIndependent"),
+                          textOutput("textIndependent1"),
+                          textOutput("textIndependent2"),
+                          textOutput("textIndependent3")),
+                 tabPanel(strong(p("Paired Sample")),h4(p("Paired Sample")),solidHeader=T,
+                          plotOutput("plotPaired"),
+                          textOutput("txtPaired1"),
+                          textOutput("txtPaired2"),
+                          textOutput("txtPaired3"))
+                 
+            
+            
+            )
+      )
+
+#=================Hypothesis Testing for 2 populations Ends====================#
+ )
+))
 
 dashboardPage(skin = "black",header,sidebar,body)

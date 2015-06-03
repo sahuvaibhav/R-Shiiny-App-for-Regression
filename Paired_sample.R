@@ -24,8 +24,8 @@ Paired_sample = function(dbar,D,sd,n,type,alpha){
     i <- x <= zl 
     j  = x >=zu
     lines(x, hx)
-    polygon(c(min(x),x[i],zl), c(0,hx[i],0), col="red")
-    polygon(c(zu,x[j],max(x)), c(0,hx[j],0), col="red")
+    polygon(c(x[i][1],x[i],rev(x[i])[1]), c(0,hx[i],0), col="#569BBD")
+    polygon(c(x[j][1],x[j],rev(x[j])[1]), c(0,hx[j],0), col="#569BBD")
     axis(1, at=c(zl,zu,D-3*s, D-2*s,D-s,D,
                  D+s,D+2*s,D+3*s,dbar), pos=0) 
     
@@ -50,7 +50,7 @@ Paired_sample = function(dbar,D,sd,n,type,alpha){
     t3 = (paste("Confidence Interval:[",lb, ",",ub,"]" ))
     i <- x <= zl 
     lines(x, hx)
-    polygon(c(min(x),x[i],zl), c(0,hx[i],0), col="red")
+    polygon(c(x[i][1],x[i],rev(x[i])[1]), c(0,hx[i],0), col="#569BBD")
     axis(1, at=c(D-3*s, D-2*s,D-s,D,D+s,D+2*s,D+3*s,zl,dbar), pos=0)
     text(x=zl, y=(dnorm(D,D,s) - dnorm(zl,D,s))/1.2, labels='Rejection Region', col='blue')
     arrows(x0=zl, y0=(dnorm(D,D,s) - dnorm(zl,D,s))/1.2, x1=zl-0.3*s, y1=dnorm(zl-0.3*s,D, s), col='blue', length=0.1, lwd=1)
@@ -69,7 +69,7 @@ Paired_sample = function(dbar,D,sd,n,type,alpha){
     t3 = (paste("Confidence Interval:[",lb, ",",ub,"]" ))
     j  = x >=zu
     lines(x, hx)
-    polygon(c(zu,x[j],max(x)), c(0,hx[j],0), col="red")
+    polygon(c(x[j][1],x[j],rev(x[j])[1]), c(0,hx[j],0), col="#569BBD")
     axis(1, at=c(D-3*s, D-2*s,D-s,D,
                  D+s,D+2*s,D+3*s,zu,dbar), pos=0)
     text(x=zu, y=(dnorm(D,D,s) - dnorm(zu,D,s))/1.2, labels='Rejection Region', col='blue')
