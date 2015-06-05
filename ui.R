@@ -1,9 +1,12 @@
+library("shinydashboard")
+library("shiny")
+
 header =   dashboardHeader(title = "Statistics")
 
 sidebar = dashboardSidebar(
   sidebarMenu(
               menuItem("Confidence Interval", tabName = "tabCI",icon = icon("area-chart")),
-              menuItem("Hypothesis Testing", tabName = "tabHT", icon = icon("area-chart"),badgeLabel = "New",badgeColor = "green"),
+              menuItem("Hypothesis Testing", tabName = "tabHT", icon = icon("area-chart"),badgeColor = "green"),
               menuItem("Hypothesis Testing for 2 Populations", tabName = "tabHT2",icon = icon("area-chart")),
               menuItem("Anova", tabName = "tabAnova",icon = icon("area-chart")),
               menuItem("Regression", tabName = "tabRegression",icon = icon("line-chart"))
@@ -226,10 +229,78 @@ body = dashboardBody(
 #==============================ANOVA Ends======================================#
 
 #=================Regression Starts====================#
-      tabItem(tabName= "tabRegression",h2("Linear Regression Model") )
+      tabItem(tabName= "tabRegression",h2("Linear Regression Model"),
+              fluidRow(
+                column(width=3,
+                box(title = strong("Input Parameters"),solidHeader =T,collapsible =T,width = NULL, status = "primary",collapsed=F,
+                    strong("Load CSV file"),
+                    fileInput('fileReg',"",accept=c('text/csv', 'text/comma-separated-values,text/plain')),
+                    div(class = "row-fluid",
+                        div(class="col-md-6",radioButtons("sep",h5("Separator"),c(Comma=',',Semicolon=';',Tab='\t'),',')),
+                        div(class="col-md-6",radioButtons("quote",h5("Quote"),c(None='','Double Quote'='"','Single Quote'="'"),'"'))
+                    ),
+                    checkboxInput('header', 'Header', TRUE))
+                #box(title = strong("Input Parameters"),solidHeader =T,collapsible =T,width = NULL, status = "primary",collapsed=F,uiOutput("Regvariable"))
+              ),
+              column(width=9,
+                     box(title = strong(p("Data Summary & Plots")),solidHeader =T, collapsible =T,width = NULL, status = "warning",
+                         tabBox(title = strong("Summary"),width = 14,side = "right",
+                                tabPanel(strong("Summary"),
+                                         textOutput('Regfilename'),
+                                         tableOutput('Regcontents'),
+                                         strong(h5(div("Notes:",style = "color:red"))),
+                                         p("For more Info on Data Summary refer",a("Link.",href = "https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/R/stat.desc.R?revision=2&root=pastecs&pathrev=4"))
+                                ),
+                                tabPanel(strong("Exploratory Plots"),
+                                         box(title = strong("Input Parameters"),solidHeader =T,collapsible =T,width = 3, status = "primary",collapsed=F,uiOutput("Regvariable")),
+                                         box(title = strong("Plots"),uiOutput('Regplots'),width=9,solidHeader =T,collapsible =T, status = "primary",collapsed=F),
+                                         p(".")
+                                         )
+                         ))
+                     #box(title = strong(p("Input Variables")),solidHeader =T, collapsible =T,width = NULL, status = "warning",uiOutput("varReg"))
+                     )
+              ),
+              fluidRow(
+                box(title = strong(p("Input Variables")),solidHeader =T, collapsible =T,width = 12, status = "primary",uiOutput("varReg"))
+                
+                ),
+              fluidRow(
+                box(title = strong("Linear Regression Analysis"),solidHeader=T,collapsible=T,status="warning",width=12,
+                  fluidRow(
+                    column(width=6,
+                          box(title= strong("Regression Summary & Residual Plots"),solidHeader=T,collapsible=T,status="primary",width=NULL,
+                              textOutput('textReg'),plotOutput("RegPlot")),
+                          box(title=strong("Least Square Estimates"),solidHeader=T,collapsible=T,status="primary",width=NULL,
+                              verbatimTextOutput('SummaryReg')),
+                          box(title= strong("Added Variable Plot"),solidHeader=T,collapsible=T,status="primary",width=NULL,
+                              plotOutput('avPlot')),
+                          box(title=strong("Box-Cox Transformation"),solidHeader=T,collapsible=T,status="primary",width=NULL,
+                              plotOutput("boxcoxPlot")),
+                          box(title= strong("Influence Index Plots"),solidHeader=T,collapsible=T,status="primary",width=NULL,
+                              plotOutput('InfIndexPlot'))
+                          ),
+                    column(width=6,
+                           box(title= strong("Residual Plots"),solidHeader=T,collapsible=T,status="primary",width=NULL,
+                               plotOutput('ResPlot')),
+                           box(title= strong("Best Subset AIC"),solidHeader=T,collapsible=T,status="primary",width=NULL,
+                               verbatimTextOutput("BestAIC")),
+                           box(title= strong("Residuals vs Regressors Plots"),solidHeader=T,collapsible=T,status="primary",width=NULL,
+                               plotOutput('ResidualPlot'),tableOutput('ResidualTable')),
+                           box(title= strong("Variance Inflation Factor(VIF) Table"),solidHeader=T,collapsible=T,status="primary",width=NULL,
+                               tableOutput("VIF")),
+                           box(title= strong("Variance Decomposition Proportions"),solidHeader=T,collapsible=T,status="primary",width=NULL,
+                               tableOutput("VarDecompProp")),
+                           box(title= strong("Influence Plot"),solidHeader=T,collapsible=T,status="primary",width=NULL,
+                               plotOutput('InfluencePlot'))
+                      ) )
+                    )
 
-
-
+                  
+                  )
+                
+                
+                )
+              
 #==============================Regression Ends=================================#
 ))
 
