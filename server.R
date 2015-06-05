@@ -173,7 +173,7 @@ function(input,output) {
         nf<- layout( matrix( c( 1, 2 ), 1, 2, byrow = TRUE),c(2, 2), c( 5, 5 ), TRUE )
         layout.show(nf )
         x = input$variable[[my_i]]
-        print(x)
+        #print(x)
         ggplot(data= data,aes_string(x=input$variable[[my_i]]))+geom_histogram(aes(y=..density..),color="black",fill="white")+geom_density(alpha=0.2,fill="red")
 #         par(mfrow = c(1,2))
 #          hx <- dnorm(data[[input$variable[[my_i]]]],mean(data[[input$variable[[my_i]]]]),sd(data[[input$variable[[my_i]]]])/sqrt(length(data[[input$variable[[my_i]]]])))

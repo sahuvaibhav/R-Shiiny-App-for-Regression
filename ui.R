@@ -175,13 +175,13 @@ body = dashboardBody(
                      p("For more Info on Data Summary refer",a("Link.",href = "https://r-forge.r-project.org/scm/viewvc.php/*checkout*/pkg/R/stat.desc.R?revision=2&root=pastecs&pathrev=4"))
                      ),
                          tabPanel(strong("Exploratory Plots"),uiOutput('plots'))
-                     ))
+                     )),
                  
-              ),
+              #),
 #               ),
 #                 
 #               fluidRow(
-                box(title = strong("Output"),solidHeader=T,status="warning",collapsible=T,width=9,collapsed=T,
+                box(title = strong("Output"),solidHeader=T,status="warning",collapsible=T,width=NULL,collapsed=T,
                     tabBox(title = strong("Analysis Of Variance"),width = 14,side = "left",
                            tabPanel(strong("Anova"),
                                     fluidRow(
@@ -218,7 +218,7 @@ body = dashboardBody(
                                     tableOutput("HotLawManova")),
                                     box(title=strong("Roy's Test"),collapsible=T,solidHeader=T,status="primary",
                                     tableOutput("RoyManova"))))
-                           )
+                           ))
                 ))
       
               ),
